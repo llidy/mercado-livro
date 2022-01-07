@@ -23,7 +23,7 @@ class CustomerController (
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Int): Customer {
-       return customerService.getCustomer(id)
+       return customerService.getById(id)
     }
 
     @PutMapping("/{id}")
@@ -37,4 +37,6 @@ class CustomerController (
     fun delete(@PathVariable id: Int){
         customerService.delete(id)
     }
+
+
 }
