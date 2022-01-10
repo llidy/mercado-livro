@@ -1,22 +1,21 @@
 package com.mercadolivro.customer
 
-import com.mercadolivro.book.Book
-import com.mercadolivro.book.BookRequest
-import com.mercadolivro.book.BookStatus
-import com.mercadolivro.book.PutBookRequest
+import com.mercadolivro.book.*
 
-fun PutCustomerRequest.toCostumer(id: Int): Customer{
+fun PutCustomerRequest.toCostumer(previousValue: Customer): Customer{
     return Customer(
-        id = id,
+        id = previousValue.id,
         name = this.name,
-        email = this.email
+        email = this.email,
+        status = previousValue.status
     )
 }
 
 fun CustomerRequest.toCostumer(): Customer{
     return Customer(
         name = this.name,
-        email = this.email
+        email = this.email,
+        status = CustomerStatus.ACTIVE
     )
 }
 
@@ -38,4 +37,25 @@ fun PutBookRequest.toBook(previousValue: Book): Book {
         status = previousValue.status,
         customer = previousValue.customer
     )
+}
+
+fun Customer.toResponse(): CustomerResponse{
+    return CustomerResponse(
+        id = this.id,
+        name = this.name,
+        email = this.email,
+        status = this.status
+
+    )
+}
+
+fun Book.toResponse(): BookResponse {
+    return BookResponse(
+        id = this.id,
+        name = this.name,
+        price = this.price,
+        customer = this.customer,
+        status = this.status
+    )
+
 }

@@ -11,8 +11,8 @@ class CustomerController (
 
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<Customer> {
-        return customerService.getAll(name)
+    fun getAll(@RequestParam name: String?): List<CustomerResponse> {
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @PostMapping
@@ -22,14 +22,15 @@ class CustomerController (
     }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Int): Customer {
-       return customerService.getById(id)
+    fun findById (@PathVariable id: Int): CustomerResponse {
+       return customerService.findById(id).toResponse()
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Int, @RequestBody requestPut: PutCustomerRequest){
-        customerService.update(id, requestPut.toCostumer(id))
+        val customerSaved = customerService.findById(id)
+        customerService.update(id, requestPut.toCostumer(customerSaved))
     }
 
     @DeleteMapping("/{id}")

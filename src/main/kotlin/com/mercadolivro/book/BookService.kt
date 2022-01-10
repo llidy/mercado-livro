@@ -1,5 +1,6 @@
 package com.mercadolivro.book
 
+import com.mercadolivro.customer.Customer
 import org.springframework.stereotype.Service
 
 @Service
@@ -32,6 +33,11 @@ class BookService(
 
     fun update(book: Book) {
         bookRepository.save(book)
+
+    }
+
+    fun deleteByCustomer(customer: Customer) {
+        bookRepository.findByCustomer(customer)
 
     }
 

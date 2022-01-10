@@ -1,10 +1,12 @@
 package com.mercadolivro.customer
 
+import com.mercadolivro.book.BookService
 import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository
+    val customerRepository: CustomerRepository,
+    val bookService: BookService
 ) {
 
     fun getAll(name: String?): List<Customer> {
@@ -18,7 +20,7 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
-    fun getById(id: Int): Customer {
+    fun findById(id: Int): Customer {
         return customerRepository.findById(id).orElseThrow()
     }
 
@@ -31,10 +33,10 @@ class CustomerService(
     }
 
     fun delete(id: Int){
-        if(!customerRepository.existsById(id)){
-            throw Exception()
-        }
+        val customer = findById(id)
+        bookService.deleteByCustomer(customer)
 
-        customerRepository.deleteById(id)
+        customer.status = CustomerStatus.INACTIVE
+        customerRepository.save(customer)
     }
 }

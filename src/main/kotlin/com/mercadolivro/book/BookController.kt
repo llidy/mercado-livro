@@ -2,6 +2,7 @@ package com.mercadolivro.book
 
 import com.mercadolivro.customer.CustomerService
 import com.mercadolivro.customer.toBook
+import com.mercadolivro.customer.toResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -15,23 +16,23 @@ class BookController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createBook(@RequestBody requestBook: BookRequest){
-        val customer = customerService.getById(requestBook.customerId)
+        val customer = customerService.findById(requestBook.customerId)
         bookService.createBook(requestBook.toBook(customer))
     }
 
     @GetMapping
-      fun findAll(): List<Book>{
-        return bookService.findAll()
+      fun findAll(): List<BookResponse>{
+        return bookService.findAll().map { it.toResponse() }
       }
 
     @GetMapping("/actives")
-    fun findActives(): List<Book>{
-        return bookService.findActives()
+    fun findActives(): List<BookResponse>{
+        return bookService.findActives().map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Int): Book{
-        return bookService.getById(id)
+    fun getById(@PathVariable id: Int): BookResponse{
+        return bookService.getById(id).toResponse()
     }
 
     @DeleteMapping("/{id}")
