@@ -1,6 +1,9 @@
 package com.mercadolivro.customer
 
 import com.mercadolivro.book.BookService
+import com.mercadolivro.exception.NotFoundException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -9,11 +12,11 @@ class CustomerService(
     val bookService: BookService
 ) {
 
-    fun getAll(name: String?): List<Customer> {
+    fun getAll(name: String?, pageable: Pageable): Page<Customer> {
         name?.let {
-            return customerRepository.findByNameContaining(it)
+            return customerRepository.findByNameContaining(it, pageable)
         }
-        return customerRepository.findAll().toList()
+        return customerRepository.findAll(pageable)
     }
 
     fun createCustomer(customer: Customer){
@@ -21,7 +24,7 @@ class CustomerService(
     }
 
     fun findById(id: Int): Customer {
-        return customerRepository.findById(id).orElseThrow()
+        return customerRepository.findById(id).orElseThrow{NotFoundException("Custemer ${id} not exists", "ML-0002")}
     }
 
     fun update(id: Int, customer: Customer){
