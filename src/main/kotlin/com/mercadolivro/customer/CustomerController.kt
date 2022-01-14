@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("customers")
@@ -20,7 +21,7 @@ class CustomerController (
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createCustomer(@RequestBody request: CustomerRequest) {
+    fun createCustomer(@RequestBody @Valid request: CustomerRequest) {
         customerService.createCustomer(request.toCostumer())
     }
 
@@ -31,7 +32,7 @@ class CustomerController (
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Int, @RequestBody requestPut: PutCustomerRequest){
+    fun update(@PathVariable id: Int, @RequestBody @Valid requestPut: PutCustomerRequest){
         val customerSaved = customerService.findById(id)
         customerService.update(id, requestPut.toCostumer(customerSaved))
     }

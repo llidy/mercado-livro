@@ -1,6 +1,8 @@
 package com.mercadolivro.book
 
 import com.mercadolivro.customer.Customer
+import com.mercadolivro.exception.BadRequestException
+import com.mercadolivro.exception.Errors
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.persistence.*
@@ -27,7 +29,7 @@ class Book(
     var status: BookStatus? = null
         set(value){
             if(field == BookStatus.CALLED_OFF || field == BookStatus.DELETED){
-                throw Exception("Não é possível alterar livro com status ${field}")
+                throw BadRequestException(Errors.ML101.message.format(field), Errors.ML101.code)
             }
             field = value
         }

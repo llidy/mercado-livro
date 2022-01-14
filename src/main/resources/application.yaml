@@ -4,7 +4,7 @@ spring:
     hibernate:
       ddl-alto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/mercadolivro?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3307/mercadolivro?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
     username: root
     password: admin
   jackson:

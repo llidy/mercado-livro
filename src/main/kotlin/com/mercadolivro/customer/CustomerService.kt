@@ -1,10 +1,12 @@
 package com.mercadolivro.customer
 
 import com.mercadolivro.book.BookService
+import com.mercadolivro.exception.Errors
 import com.mercadolivro.exception.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import javax.validation.constraints.Email
 
 @Service
 class CustomerService(
@@ -24,7 +26,7 @@ class CustomerService(
     }
 
     fun findById(id: Int): Customer {
-        return customerRepository.findById(id).orElseThrow{NotFoundException("Custemer ${id} not exists", "ML-0002")}
+        return customerRepository.findById(id).orElseThrow{NotFoundException(Errors.ML200.message.format(id), Errors.ML200.code)}
     }
 
     fun update(id: Int, customer: Customer){
@@ -41,5 +43,9 @@ class CustomerService(
 
         customer.status = CustomerStatus.INACTIVE
         customerRepository.save(customer)
+    }
+
+    fun emailAvailable(email: String): Boolean {
+        return !customerRepository.existsByEmail(email)
     }
 }

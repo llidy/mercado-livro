@@ -1,6 +1,7 @@
 package com.mercadolivro.book
 
 import com.mercadolivro.customer.Customer
+import com.mercadolivro.exception.Errors
 import com.mercadolivro.exception.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -23,7 +24,7 @@ class BookService(
     }
 
     fun getById(id: Int): Book {
-        return bookRepository.findById(id).orElseThrow { NotFoundException("Book ${id} not exists", "ML-0001") }
+        return bookRepository.findById(id).orElseThrow { NotFoundException(Errors.ML100.message.format(id), Errors.ML100.code) }
     }
 
     fun delete(id: Int) {
