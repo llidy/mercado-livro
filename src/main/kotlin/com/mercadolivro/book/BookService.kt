@@ -11,19 +11,19 @@ import org.springframework.stereotype.Service
 class BookService(
     val bookRepository: BookRepository
 ) {
-    fun createBook(book: Book) {
-        bookRepository.save(book)
+    fun createBook(bookModel: BookModel) {
+        bookRepository.save(bookModel)
     }
 
-    fun findAll(pageable: Pageable): Page<Book> {
+    fun findAll(pageable: Pageable): Page<BookModel> {
         return bookRepository.findAll(pageable)
     }
 
-    fun findActives(pageable: Pageable): Page<Book> {
+    fun findActives(pageable: Pageable): Page<BookModel> {
         return bookRepository.findByStatus(BookStatus.ACTIVE, pageable)
     }
 
-    fun getById(id: Int): Book {
+    fun getById(id: Int): BookModel {
         return bookRepository.findById(id).orElseThrow { NotFoundException(Errors.ML100.message.format(id), Errors.ML100.code) }
     }
 
@@ -35,8 +35,8 @@ class BookService(
         update(book)
     }
 
-    fun update(book: Book) {
-        bookRepository.save(book)
+    fun update(bookModel: BookModel) {
+        bookRepository.save(bookModel)
 
     }
 

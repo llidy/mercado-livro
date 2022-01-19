@@ -9,6 +9,9 @@ spring:
     password: admin
   jackson:
     default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
     #JPA configuration

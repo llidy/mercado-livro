@@ -19,8 +19,8 @@ fun CustomerRequest.toCostumer(): Customer{
     )
 }
 
-fun BookRequest.toBook(customer: Customer): Book {
-    return Book(
+fun BookRequest.toBook(customer: Customer): BookModel {
+    return BookModel(
         name = this.name,
         price = this.price,
         status = BookStatus.ACTIVE,
@@ -29,8 +29,8 @@ fun BookRequest.toBook(customer: Customer): Book {
 
 }
 
-fun PutBookRequest.toBook(previousValue: Book): Book {
-    return Book(
+fun PutBookRequest.toBook(previousValue: BookModel): BookModel {
+    return BookModel(
         id = previousValue.id,
         name = this.name ?: previousValue.name,
         price = this.price ?: previousValue.price,
@@ -49,7 +49,7 @@ fun Customer.toResponse(): CustomerResponse{
     )
 }
 
-fun Book.toResponse(): BookResponse {
+fun BookModel.toResponse(): BookResponse {
     return BookResponse(
         id = this.id,
         name = this.name,

@@ -7,8 +7,8 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import javax.persistence.*
 
-@Entity
-class Book(
+@Entity(name = "book")
+class BookModel(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
