@@ -4,12 +4,15 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/purchase")
-class PurchaseController {
+@RequestMapping("purchases")
+class PurchaseController(
+    private val purchaseService: PurchaseService,
+    private val purchaseMapper: PurchaseMapper
+) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun purchase(@RequestBody purchaseRequest: PurchaseRequest){
-
+        purchaseService.create(purchaseMapper.toModel(purchaseRequest))
     }
 }
