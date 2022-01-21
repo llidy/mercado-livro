@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity(name = "purchase")
-class Purchase (
+data class Purchase (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ class Purchase (
     @JoinTable(name = "purchase_book",
         joinColumns = [JoinColumn(name = "purchase_id")],
         inverseJoinColumns = [JoinColumn(name = "book_id")])
-    val books: List<BookModel>,
+    val books: MutableList<BookModel>,
 
     @Column
     val nfe: String? = null,
