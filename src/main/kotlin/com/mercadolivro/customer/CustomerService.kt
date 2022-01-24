@@ -22,7 +22,10 @@ class CustomerService(
     }
 
     fun createCustomer(customer: Customer){
-        customerRepository.save(customer)
+        val customerCopy =customer.copy(
+            roles = setOf(Profile.CUSTOMER)
+        )
+        customerRepository.save(customerCopy)
     }
 
     fun findById(id: Int): Customer {
