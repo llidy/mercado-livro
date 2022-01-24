@@ -11,8 +11,12 @@ data class CustomerRequest (
 
     @field:Email(message = "E-mail deve ser válido")
     @field:NotEmpty
-    @EmailAvailable
-    var email: String
+    @EmailAvailable(message = "Email em uso")
+    var email: String,
+
+    @field:NotEmpty(message = "Senha deve ser informada")
+    var password: String
+
 ){
 
 }

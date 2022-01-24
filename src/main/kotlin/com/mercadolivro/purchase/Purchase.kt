@@ -1,8 +1,10 @@
 package com.mercadolivro.purchase
 
 import com.mercadolivro.book.BookModel
+import com.mercadolivro.book.BookStatus
 import com.mercadolivro.customer.Customer
-import java.awt.print.Book
+import com.mercadolivro.exception.BadRequestException
+import com.mercadolivro.exception.Errors
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.persistence.*

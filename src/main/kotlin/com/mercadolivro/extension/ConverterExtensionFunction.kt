@@ -7,7 +7,8 @@ fun PutCustomerRequest.toCostumer(previousValue: Customer): Customer{
         id = previousValue.id,
         name = this.name,
         email = this.email,
-        status = previousValue.status
+        status = previousValue.status,
+        password = previousValue.password
     )
 }
 
@@ -15,7 +16,8 @@ fun CustomerRequest.toCostumer(): Customer{
     return Customer(
         name = this.name,
         email = this.email,
-        status = CustomerStatus.ACTIVE
+        status = CustomerStatus.ACTIVE,
+        password = this.password
     )
 }
 

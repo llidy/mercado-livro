@@ -30,9 +30,12 @@ class BookModel(
         set(value){
             if(field == BookStatus.CALLED_OFF || field == BookStatus.DELETED){
                 throw BadRequestException(Errors.ML101.message.format(field), Errors.ML101.code)
+            } else if (field == BookStatus.SOLD){
+                throw BadRequestException(Errors.ML101.message, Errors.ML101.code)
             }
             field = value
         }
+
 
     constructor(id: Int? = null,
                 name: String,
@@ -40,5 +43,7 @@ class BookModel(
                 customer: Customer? = null,
                 status: BookStatus?): this(id, name, price, customer){
                     this.status = status
+
                 }
+
 }
