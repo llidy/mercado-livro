@@ -5,13 +5,15 @@ import com.mercadolivro.exception.Errors
 import com.mercadolivro.exception.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import javax.validation.constraints.Email
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository,
-    val bookService: BookService
+    private val customerRepository: CustomerRepository,
+    private val bookService: BookService,
+    private val bCrypt: BCryptPasswordEncoder
 ) {
 
     fun getAll(name: String?, pageable: Pageable): Page<Customer> {
@@ -22,8 +24,9 @@ class CustomerService(
     }
 
     fun createCustomer(customer: Customer){
-        val customerCopy =customer.copy(
-            roles = setOf(Profile.CUSTOMER)
+        val customerCopy = customer.copy(
+            roles = setOf(Profile.CUSTOMER),
+            password = bCrypt.encode(customer.password)
         )
         customerRepository.save(customerCopy)
     }
