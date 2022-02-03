@@ -1,6 +1,5 @@
 package com.mercadolivro.customer
 
-import org.apache.tomcat.util.descriptor.web.SecurityRoleRef
 import javax.persistence.*
 
 @Entity(name = "customer")
@@ -24,9 +23,9 @@ data class Customer(
     val password: String,
 
     @CollectionTable(name = "customer_roles", joinColumns = [JoinColumn(name = "customer_id")])
-    @ElementCollection(targetClass = Profile::class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role::class, fetch = FetchType.EAGER)
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    var roles: Set<Profile> = setOf()
+    var roles: Set<Role> = setOf()
 
 )

@@ -1,4 +1,3 @@
-
 spring:
   jpa:
     hibernate:
@@ -13,8 +12,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+jwt:
+  secret: 5744878b-3c0b-4523-9644-270f58727500
+  expiration: 999999
 
-    #JPA configuration
+#JPA configuration
 #    spring.jpa.hibernate.ddl-auto=update
 #    spring.jpa.show-sql=true
 #    spring.jpa.generate-ddl=true
