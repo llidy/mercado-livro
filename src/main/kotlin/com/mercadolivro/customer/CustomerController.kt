@@ -1,5 +1,6 @@
 package com.mercadolivro.customer
 
+import com.mercadolivro.security.UserCanOnlyAccessTheirOwnResource
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -27,7 +28,7 @@ class CustomerController (
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == authentication.principal.id")
+    @UserCanOnlyAccessTheirOwnResource
     fun findById (@PathVariable id: Int): CustomerResponse {
        return customerService.findById(id).toResponse()
     }
