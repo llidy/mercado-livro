@@ -14,8 +14,8 @@ import kotlin.collections.contains as contains
 
 @Service
 class BookService(
-    val bookRepository: BookRepository,
-    val purchaseService: PurchaseService
+    private val bookRepository: BookRepository,
+    private val purchaseService: PurchaseService
 ) {
     fun createBook(bookModel: BookModel) {
         bookRepository.save(bookModel)

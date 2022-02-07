@@ -1,6 +1,6 @@
 package com.mercadolivro.event
 
-import com.mercadolivro.book.BookRepository
+
 import com.mercadolivro.book.BookService
 import org.springframework.context.event.EventListener
 import org.springframework.scheduling.annotation.Async
