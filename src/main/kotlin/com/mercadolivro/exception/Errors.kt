@@ -1,6 +1,9 @@
 package com.mercadolivro.exception
 
 enum class Errors(val code: String, val message: String) {
+
+    ML000("ML-000", "Access Denied"),
+
     //Errors 001-099 referentes a requesições inválidas
     ML001("ML-001","Invalid Request"),
 

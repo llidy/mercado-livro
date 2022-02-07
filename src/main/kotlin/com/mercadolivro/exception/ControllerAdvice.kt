@@ -2,10 +2,10 @@ package com.mercadolivro.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.context.request.WebRequest
 
 @ControllerAdvice
@@ -42,5 +42,16 @@ class ControllerAdvice {
             ex.bindingResult.fieldErrors.map { FieldErrorResponse(it.defaultMessage ?: "invalid", it.field) }
         )
         return  ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY )
+    }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDeniedException(ex: AccessDeniedException, request: WebRequest): ResponseEntity<ErrorResponse>{
+        val error =  ErrorResponse(
+            HttpStatus.FORBIDDEN.value(),
+            Errors.ML000.message,
+            Errors.ML000.code,
+            null
+        )
+        return  ResponseEntity(error, HttpStatus.FORBIDDEN)
     }
 }
