@@ -2,6 +2,7 @@ package com.mercadolivro.book
 
 import com.mercadolivro.customer.CustomerService
 import com.mercadolivro.customer.toBook
+import com.mercadolivro.customer.toPageResponse
 import com.mercadolivro.customer.toResponse
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -26,8 +27,8 @@ class BookController(
     }
 
     @GetMapping
-    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse>{
-        return bookService.findAll(pageable).map { it.toResponse() }
+    fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> {
+        return bookService.findAll(pageable).map { it.toResponse() }.toPageResponse()
     }
 
     @GetMapping("/actives")

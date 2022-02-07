@@ -1,6 +1,7 @@
 package com.mercadolivro.customer
 
 import com.mercadolivro.book.*
+import org.springframework.data.domain.Page
 
 fun PutCustomerRequest.toCostumer(previousValue: Customer): Customer{
     return Customer(
@@ -60,4 +61,12 @@ fun BookModel.toResponse(): BookResponse {
         status = this.status
     )
 
+}
+
+fun <T> Page<T>.toPageResponse(): PageResponse<T> {
+    return PageResponse(
+        this.content,
+        this.number,
+        this.totalElements,
+        this.totalPages)
 }
