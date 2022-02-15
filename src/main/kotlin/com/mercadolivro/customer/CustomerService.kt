@@ -15,11 +15,11 @@ class CustomerService(
     private val bCrypt: BCryptPasswordEncoder
 ) {
 
-    fun getAll(name: String?, pageable: Pageable): Page<Customer> {
+    fun getAll(name: String?): List<Customer> {
         name?.let {
-            return customerRepository.findByNameContaining(it, pageable)
+            return customerRepository.findByNameContaining(it)
         }
-        return customerRepository.findAll(pageable)
+        return customerRepository.findAll().toList()
     }
 
     fun createCustomer(customer: Customer){

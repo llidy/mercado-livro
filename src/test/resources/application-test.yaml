@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:mysql://localhost:3307/mercadolivrotest?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+  jpa:
+    hibernate:
+      ddl-alto: update
+  jackson:
+    default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+jwt:
+  secret: 5744878b-3c0b-4523-9644-270f58727500
+  expiration: 999999
+
+#JPA configuration
+#    spring.jpa.hibernate.ddl-auto=update
+#    spring.jpa.show-sql=true
+#    spring.jpa.generate-ddl=true
+#    spring.jpa.properties.hibernate.format_sql=true
