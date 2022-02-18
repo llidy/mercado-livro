@@ -2,7 +2,7 @@ spring:
   profiles:
     active: test
   datasource:
-    url: jdbc:mysql://localhost:3307/mercadolivrotest?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/mercadolivrotest?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
     username: root
     password: admin
   jpa:

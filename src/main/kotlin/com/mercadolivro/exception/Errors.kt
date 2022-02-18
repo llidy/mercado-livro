@@ -12,5 +12,5 @@ enum class Errors(val code: String, val message: String) {
     ML101("ML-0002", "Cannot update book with status[%s]"),
 
     //Errors 200-299 referentes a Customer
-    ML200("ML-0002", "Customer [%s] not exists")
+    ML200("ML-200", "Customer [%s] not exists")
 }
