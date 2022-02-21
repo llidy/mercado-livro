@@ -16,20 +16,15 @@ import javax.persistence.Id
 class PurchaseService(
     private val purchaseRepository: PurchaseRepository,
     private val applicationEventPublisher: ApplicationEventPublisher,
-    private val bookRepository: BookRepository
 
 ) {
 
     fun create(purchase: Purchase) {
-
-
-      val bookStatus = bookRepository.findByStatus(BookStatus.SOLD)
-
-        println(bookStatus)
-       purchaseRepository.save(purchase)
+        purchaseRepository.save(purchase)
 
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchase))
     }
+
     fun update(purchase: Purchase) {
         purchaseRepository.save(purchase)
 

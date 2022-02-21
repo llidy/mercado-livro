@@ -1,11 +1,9 @@
 package com.mercadolivro.customer
 
 import com.mercadolivro.book.BookService
-import com.mercadolivro.book.PageResponse
 import com.mercadolivro.exception.Errors
 import com.mercadolivro.exception.NotFoundException
-import io.mockk.InternalPlatformDsl.identityHashCode
-import io.mockk.InternalPlatformDsl.toArray
+import com.mercadolivro.helper.buildCustomer
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -18,13 +16,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.*
-import javax.print.attribute.standard.PageRanges
 
 @ExtendWith(MockKExtension::class)
 class CustomerServiceTest{
@@ -206,21 +199,6 @@ class CustomerServiceTest{
         assertFalse(emailAvailable)
         verify(exactly = 1) { customerRepository.existsByEmail(email) }
     }
-
-    fun buildCustomer(
-        id: Int? = null,
-        name: String = "customer name",
-        email: String= "${UUID.randomUUID()}@email.com",
-        password: String = "password"
-    ) = Customer(
-        id = id,
-        name = name,
-        email = email,
-        password = password,
-        status = CustomerStatus.ACTIVE,
-        roles = setOf(Role.CUSTOMER)
-    )
-
 }
 
 
